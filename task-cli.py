@@ -54,7 +54,6 @@ class Task_Manager:
     def task_list(self, task_filter):
         with open('tasks.json', 'r') as file:
             while True:
-                self.json_atualizer()
                 num = int(1)
 
                 if task_filter == "all":
