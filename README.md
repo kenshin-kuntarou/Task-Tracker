@@ -19,7 +19,6 @@ You can add tasks.
 
 ```
 python3 task-cli.py -add 'My Task'
-
 ```
 
 You can delete tasks from `id`.
@@ -48,7 +47,7 @@ python3 task-cli -list all
 
 ---
 
-#### Ignore
+#### Url Project
 
 https://roadmap.sh/projects/task-tracker
 
