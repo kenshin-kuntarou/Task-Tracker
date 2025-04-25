@@ -5,24 +5,24 @@ import datetime
 class Task_Manager:
     def __init__(self):
         self.tasks = dict()
-        self.ids = 1
+        self.ids = int(1)
         self.date = datetime.datetime.now()
 
     def json_converter(self):
-        with open("tasks.json", encoding='UTF-8', errors='ignore', mode="w") as file:
-
+        with open("tasks.json", encoding="UTF-8", errors="ignore", mode="w") as file:
             json.dump(self.tasks, file, indent=4)
-        with open("tasks.json", errors='ignore', mode="r") as file:
+
+        with open("tasks.json", errors="ignore", mode="r") as file:
             print(file.read())
     
-    def task_atualizer(self):
+    def json_atualizer(self):
         try:
             with open("tasks.json", "r") as file:
                 self.tasks = json.load(file)
 
         except FileNotFoundError:
             self.tasks = dict()
-            self.ids = 1 
+            self.ids = int(1) 
 
     def add_task(self, task_name):
         while str(self.ids) in self.tasks.keys():
@@ -54,22 +54,25 @@ class Task_Manager:
     def task_list(self, task_filter):
         with open('tasks.json', 'r') as file:
             while True:
-                num = 1
-                
+                self.json_atualizer()
+                num = int(1)
+
                 if task_filter == "all":
                     print(file.read())
                     break
 
-                elif str(num) not in file.read():
+                elif str(num) not in self.tasks.keys():
                     print(f"Dont exist any task {task_filter}")
                     break
 
                 elif task_filter in self.tasks[str(num)].values():
-                    print(json.dumps(self.tasks[str(num)], indent=4))
+                    while True: 
+                        if str(num) not in self.tasks.keys():
+                            break
+                        else:
+                            print(json.dumps(self.tasks[str(num)], indent=4))
+                            num += 1
                     break
-                else:
-                    num += 1
-                
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="args for tasks")
@@ -85,7 +88,7 @@ if __name__ == "__main__":
     task_manager = Task_Manager()
 
     while True:
-        task_manager.task_atualizer()
+        task_manager.json_atualizer()
         
         if args.add:
             task_manager.add_task(args.add)
