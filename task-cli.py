@@ -30,7 +30,7 @@ class Task_Manager:
         
         self.tasks.update({int(self.ids): {
             "name": str(task_name),
-            "status": "not-done",
+            "status": "off",
             "description": str(),
             "date_create": str(self.date),
             "date_update": str(self.date)}})
@@ -52,26 +52,18 @@ class Task_Manager:
             "status": "done"})
 
     def task_list(self, task_filter):
-        with open('tasks.json', 'r') as file:
-            while True:
-                num = int(1)
+        if task_filter == "all":
+            print(json.dumps(self.tasks, indent=4))
+            return
 
-                if task_filter == "all":
-                    print(file.read())
-                    break
+        found = False
+        for task_id, task_info in self.tasks.items():
+            if task_info["status"] == task_filter:
+                print(json.dumps({task_id: task_info}, indent=4))
+                found = True
 
-                elif str(num) not in self.tasks.keys():
-                    print(f"Dont exist any task {task_filter}")
-                    break
-
-                elif task_filter in self.tasks[str(num)].values():
-                    while True: 
-                        if str(num) not in self.tasks.keys():
-                            break
-                        else:
-                            print(json.dumps(self.tasks[str(num)], indent=4))
-                            num += 1
-                    break
+        if not found:
+            print(f"Don't exist any task with status '{task_filter}'")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="args for tasks")
@@ -81,7 +73,7 @@ if __name__ == "__main__":
     parser.add_argument("-delete", type=int, help="\tDelete task")
     parser.add_argument("-mark-in-progress", type=int, help="\tMark task in progress")
     parser.add_argument("-mark-done", type=int, help="\tMark task as done")
-    parser.add_argument("-list", choices=["all", "done", "not-done", "in-progress"], help="\tList the tasks" )
+    parser.add_argument("-list", choices=["all", "done", "off", "in-progress"], help="\tList the tasks" )
 
     args = parser.parse_args()
     task_manager = Task_Manager()
