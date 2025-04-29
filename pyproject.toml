@@ -1,0 +1,6 @@
+[project]
+name = "task-tracker"
+version = "0.1.0"
+description = "A simple task manager"
+readme = "README.md"
+requires-python = ">=3.13"
