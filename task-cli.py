@@ -65,7 +65,8 @@ class Task_Manager:
         if not found:
             print(f"Don't exist any task with status '{task_filter}'")
 
-if __name__ == "__main__":
+
+def main():
     parser = argparse.ArgumentParser(description="args for tasks")
     
     parser.add_argument("-add", type=str, help="\tAdd task")
@@ -104,3 +105,6 @@ if __name__ == "__main__":
 
         task_manager.json_converter()
         break
+
+if __name__ == "__main__":
+    main()
