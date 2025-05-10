@@ -44,11 +44,4 @@ You can list all the tasks (`done` \ `not-done` \ `in-progress`)
 ```
 python3 task-cli -list all
 ```
-
----
-
-#### Url Project
-
-https://roadmap.sh/projects/task-tracker
-
 ---
