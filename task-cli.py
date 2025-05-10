@@ -8,6 +8,8 @@ class Task_Manager:
         self.ids = int(1)
         self.date = datetime.datetime.now()
 
+        self.json_atualizer()
+
     def json_converter(self):
         with open("tasks.json", encoding="UTF-8", errors="ignore", mode="w") as file:
             json.dump(self.tasks, file, indent=4)
@@ -80,8 +82,6 @@ def main():
     task_manager = Task_Manager()
 
     while True:
-        task_manager.json_atualizer()
-        
         if args.add:
             task_manager.add_task(args.add)
 
